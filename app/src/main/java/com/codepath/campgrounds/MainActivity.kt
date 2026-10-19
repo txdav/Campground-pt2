@@ -1,3 +1,4 @@
+
 package com.codepath.campgrounds
 
 import android.os.Bundle
@@ -28,27 +29,30 @@ class MainActivity : AppCompatActivity() {
     private lateinit var campgroundsRecyclerView: RecyclerView
     private lateinit var binding: ActivityMainBinding
 
-    // TODO: Create campgrounds list
+    private val campgrounds = mutableListOf<Campground>()
+    private lateinit var campgroundAdapter: CampgroundAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
         campgroundsRecyclerView = findViewById(R.id.campgrounds)
 
-        // TODO: Set up CampgroundAdapter with campgrounds
+        campgroundAdapter = CampgroundAdapter(this, campgrounds)
+        campgroundsRecyclerView.adapter = campgroundAdapter
 
-
-        campgroundsRecyclerView.layoutManager = LinearLayoutManager(this).also {
-            val dividerItemDecoration = DividerItemDecoration(this, it.orientation)
-            campgroundsRecyclerView.addItemDecoration(dividerItemDecoration)
-        }
+        campgroundsRecyclerView.layoutManager =
+            LinearLayoutManager(this).also {
+                val dividerItemDecoration =
+                    DividerItemDecoration(this, it.orientation)
+                campgroundsRecyclerView.addItemDecoration(dividerItemDecoration)
+            }
 
         val client = AsyncHttpClient()
         client.get(CAMPGROUNDS_URL, object : JsonHttpResponseHandler() {
+
             override fun onFailure(
                 statusCode: Int,
                 headers: Headers?,
@@ -56,22 +60,33 @@ class MainActivity : AppCompatActivity() {
                 throwable: Throwable?
             ) {
                 Log.e(TAG, "Failed to fetch campgrounds: $statusCode")
+                Log.e(TAG, "Error: ${throwable?.message}")
             }
 
-            override fun onSuccess(statusCode: Int, headers: Headers, json: JSON) {
-                Log.i(TAG, "Successfully fetched campgrounds: $json")
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Headers,
+                json: JSON
+            ) {
+                Log.i(TAG, "Successfully fetched campgrounds")
+
                 try {
-                    // TODO: Create the parsedJSON
+                    val parsedJson = createJson().decodeFromString(
+                        CampgroundResponse.serializer(),
+                        json.jsonObject.toString()
+                    )
 
-                    // TODO: Do something with the returned json (contains campground information)
-
-                    // TODO: Save the campgrounds and reload the screen
+                    parsedJson.data?.let { list ->
+                        campgrounds.addAll(list)
+                        campgroundAdapter.notifyDataSetChanged()
+                    }
 
                 } catch (e: JSONException) {
-                    Log.e(TAG, "Exception: $e")
+                    Log.e(TAG, "Exception parsing campground response: $e")
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error processing campground response: $e")
                 }
             }
-
         })
     }
 }
