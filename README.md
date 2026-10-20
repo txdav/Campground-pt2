@@ -8,7 +8,7 @@ Campground Explorer is an Android application that retrieves campground informat
 
 ## Demo
 
-![Campground Explorer Lab 5 Demo](Lab4-1pt2.gif)
+![Campground Explorer Lab 5 Demo](Lab4.1pt2.gif)
 
 # Campground Explorer — Lab 5, Part 2
 
