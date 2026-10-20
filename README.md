@@ -6,9 +6,8 @@ Campground Explorer is an Android application that retrieves campground informat
 
 ## Demo
 
-## Demo
-
 ![Campground Explorer Lab 5 Demo](https://files.catbox.moe/snsyax.gif)
+
 ## Features
 
 - **Campground Listings:** Retrieve and display campground information from the National Park Service API.
