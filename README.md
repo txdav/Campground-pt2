@@ -1,12 +1,13 @@
+
 # Campground Explorer — Lab 5, Part 2
 
 ## About the Project
 
-Campground Explorer is an Android application that retrieves campground information from the National Park Service (NPS) API. This version implements offline data storage using Room, allowing previously saved campground information to remain accessible when an internet connection is unavailable.
+Campground Explorer is an Android application that retrieves campground information from the National Park Service (NPS) API. This version implements offline data storage using Room, allowing previously retrieved campground information to remain accessible when an internet connection is unavailable.
 
 ## Demo
 
-![Campground Explorer Lab 5 Demo](https://files.catbox.moe/snsyax.gif)
+![Campground Explorer Lab 5 Demo](https://i.postimg.cc/X7td6Bdy/Lab4-1pt2.gif)
 
 ## Features
 
@@ -41,7 +42,7 @@ The application observes locally stored campground information and updates the d
 
 The application retrieves campground information using the National Park Service API.
 
-**API endpoint:** `https://developer.nps.gov/api/v1/campgrounds`
+**API endpoint:** https://developer.nps.gov/api/v1/campgrounds
 
 An API key is required to access the service. The key should remain in local configuration and must not be committed to a public repository.
 
@@ -51,7 +52,7 @@ Once campground information has been successfully saved to the local database, t
 
 ## Implementation Challenges
 
-During implementation, I encountered issues uploading and displaying the demonstration GIF in the README. This required troubleshooting the file location and ensuring that the Markdown image path matched the GIF's filename.
+During implementation, I encountered issues uploading and displaying the demonstration GIF in the README. Troubleshooting required checking the image URL and updating the Markdown image reference to use a different hosting service.
 
 Network connectivity and DNS resolution issues also temporarily affected API requests during testing. Restarting the emulator helped restore the campground display.
 
